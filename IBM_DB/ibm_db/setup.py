@@ -21,7 +21,7 @@ from distutils.sysconfig import get_python_lib
 from setuptools.command.install import install
 
 PACKAGE = 'ibm_db'
-VERSION = '2.0.9'
+VERSION = '3.0.0'
 LICENSE = 'Apache License 2.0'
 
 context = ssl.create_default_context()
@@ -240,7 +240,8 @@ library = ['db2']
 package_data = { 'tests': [ '*.png', '*.jpg']}
 data_files = [ (get_python_lib(), ['./README.md']),
                (get_python_lib(), ['./CHANGES']),
-               (get_python_lib(), ['./LICENSE']) ]
+               (get_python_lib(), ['./LICENSE']),
+               (get_python_lib(), ['./config.py.sample'])]
 
 modules = ['ibm_db_dbi', 'testfunctions', 'tests']
 ext_modules = _ext_modules(ibm_db_include, library, ibm_db_lib, ibm_db_lib_runtime)
