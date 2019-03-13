@@ -21,7 +21,7 @@ from distutils.sysconfig import get_python_lib
 from setuptools.command.install import install
 
 PACKAGE = 'ibm_db'
-VERSION = '3.0.0'
+VERSION = '3.0.1'
 LICENSE = 'Apache License 2.0'
 
 context = ssl.create_default_context()
@@ -52,11 +52,12 @@ if('darwin' in sys.platform):
     class PostInstall(install):
         """ Post installation - run install_name_tool on Darwin """
         def run(self):
+            install.run(self)
             clipath = os.getenv('IBM_DB_HOME', '@loader_path/clidriver')
             print("in PostInstall with {}".format(clipath))
-            for so in glob.glob(r'build/lib*/ibm_db*.so'):
+            for so in glob.glob(get_python_lib()+r'/ibm_db*.so'):
                 os.system("install_name_tool -change libdb2.dylib {}/lib/libdb2.dylib {}".format(clipath, so))
-            install.run(self)
+
     cmd_class = dict(install = PostInstall)
 
 
